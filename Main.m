@@ -2,7 +2,8 @@
 t = linspace(0,30,13); % uses n index - WORKS FOR 13, NOT FOR 10
 s = t; % uses m index, half of these values are useless
 
-% Sam Test Commit
+% Sam Test Commit 
+%Again
 
 
 % Initialise each class
