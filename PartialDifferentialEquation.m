@@ -9,7 +9,9 @@ function [new_u] = PartialDifferentialEquation(u, t, dt)
 %
 % OUTPUTS: new_u - M x 1 x I matrix of residents at the new time step
 
-s = 0:dt:t; % local s vector
+%s = 0:dt:t; % local s vector
+M = round(t/dt,0);
+s = linspace(0,t,M+1);
 
 new_u = zeros(size(u));
 
