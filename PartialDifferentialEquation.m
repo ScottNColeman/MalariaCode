@@ -22,7 +22,7 @@ new_u(1,1,:) = BoundaryConditions(u);
 for m = 2:length(s)
     new_u(m,1,:) = u(m-1,1,:) + dt * DirectionalDerivative( u(m-1,1,:) );
 end
-
+% new_u(m,1,:) = u(m-1,1,:) + dt * DirectionalDerivative( u(m-1,1,:) );
 % any values of new_u(m,1,:) = 0 for m > length(s) since initialised zeros
 
 end
