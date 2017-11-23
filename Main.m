@@ -2,6 +2,9 @@
 t = linspace(0,30,13); % uses n index - WORKS FOR 13, NOT FOR 10
 s = t; % uses m index, half of these values are useless
 
+% Sam Test Commit
+
+
 % Initialise each class
 I = 2; % number of classes
 u = zeros(length(t),length(s),I);
