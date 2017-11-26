@@ -1,4 +1,4 @@
-function [new_u] = PartialDifferentialEquation(model, u, t, dt)
+function new_u = PartialDifferentialEquation(model,u)%,t,dt)
 % PARTIALDIFFERENTIALEQUATION returns the new u values for all s at the
 % next time interval
 %
@@ -10,27 +10,22 @@ function [new_u] = PartialDifferentialEquation(model, u, t, dt)
 % OUTPUTS: new_u - M x 1 x I matrix of residents at the new time step
 
 %s = 0:dt:t; % local s vector
-M = round(t/dt,0);
-s = linspace(0,t,M+1);
-
-new_u = zeros(size(u));
+%%%M = round(t/dt,0);
+%%%s = linspace(0,t,M+1);
 
 % MATT - starting to include proper equations...
-uLeave = DirectionalDerivative(model,u);
+uAdv = [zeros(1,1,size(u,3)),u(1,1:end-1,:)];
+uLeave = DirectionalDerivative(model,uAdv);
+new_u = uAdv -uLeave;
+% Apply boundary condition at s = 0
+new_u(1,1,:) = BoundaryConditions(model,uAdv);
 % MATT - ...end of current edit section
 
-
-
-% Apply boundary condition at s = 0
-new_u(1,1,:) = BoundaryConditions(u);
-
-%u(:,1,1) %DEBUGGING
-
-% Calculate changes in different classes
-for m = 2:length(s)
-    new_u(m,1,:) = u(m-1,1,:) + dt * DirectionalDerivative( u(m-1,1,:) );
-end
-% new_u(m,1,:) = u(m-1,1,:) + dt * DirectionalDerivative( u(m-1,1,:) );
-% any values of new_u(m,1,:) = 0 for m > length(s) since initialised zeros
-
-end
+%%%
+%%%% Calculate changes in different classes
+%%%for m = 2:length(s)
+%%%    new_u(m,1,:) = u(m-1,1,:) + dt * DirectionalDerivative( u(m-1,1,:) );
+%%%end
+%%%% new_u(m,1,:) = u(m-1,1,:) + dt * DirectionalDerivative( u(m-1,1,:) );
+%%%% any values of new_u(m,1,:) = 0 for m > length(s) since initialised zeros
+%%%

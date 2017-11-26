@@ -7,17 +7,26 @@ switch model
         mSus = 3;
         mInf = 4;
         switch matstr
+            case 'uInit'
+                MAT = zeros(1,s2,classes);
+                switch s1
+                    case 1
+                        MAT(1,1,hSus) = 0.9;
+                        MAT(1,1,hInf) = 0.1;
+                        MAT(1,1,mSus) = 1;
+                        MAT = 1000*MAT;
+                end
             case 'P'
-                r = 0.1;
-                c = 0.2;
+                r = 0.001;
+                c = 0.002;
                 MAT = zeros(classes);
                 MAT(hSus,hInf) = r;
                 MAT(hInf,hSus) = -r;
                 MAT(mSus,mInf) = c;
                 MAT(mInf,mSus) = -c;
             case 'Q'
-                i = 0.01;
-                b = 0.02;
+                i = 0.00001;
+                b = 0.00002;
                 MAT = zeros(classes,classes,classes);
                 MAT(hSus,mInf,hSus) = -i;
                 MAT(hSus,mInf,hInf) = i;
