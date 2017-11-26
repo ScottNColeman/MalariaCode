@@ -14,8 +14,11 @@ u = zeros(length(t),length(s),I);
 u(1,1,:) = [1,0]; % must be size I x 1
 
 for n = 2:length(t)
-    u(:,n,:) = PartialDifferentialEquation( u(:,n-1,:), t(n), t(n)-t(n-1));
+    u(n,:,:) = PartialDifferentialEquation( u(n-1,:,:), t(n), t(n)-t(n-1));
 end
+% MATT - Previously u(:,n,:) was used, potentially inconsistent with u =
+% zeros(length(t),length(s),I) as this suggests t should vary across the
+% first dimension of u...?
 
 % Plot colour maps
 for i = 1:size(u,3)

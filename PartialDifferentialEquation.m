@@ -15,6 +15,15 @@ s = linspace(0,t,M+1);
 
 new_u = zeros(size(u));
 
+% MATT - starting to include proper equations...
+uLeave2 = zeros(1,1,size(u,3));
+for     s3 = 1:length(uLeave2)
+    reshape(u(1,s2,:),size(u,3),1)'BuildMatrix
+
+% MATT - ...end of current edit section
+
+
+
 % Apply boundary condition at s = 0
 new_u(1,1,:) = BoundaryConditions(u);
 
