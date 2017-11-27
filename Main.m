@@ -43,6 +43,6 @@ for i = 1:size(uInitu,3)
     xlabel('Time'); ylabel('Residence Time')
     
     figure;
-    plot( t, sum(uu(:,:),2) ) % total residence in each class against time
+    plot( t, sum(uu(:,:),1) ) % total residence in each class against time
     xlabel('Time'); ylabel('Population')
 end
