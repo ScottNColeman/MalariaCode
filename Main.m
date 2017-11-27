@@ -41,7 +41,8 @@ for i = 1:size(uInitu,3)
     uu = transpose(uInitu(:,:,i));
     contourf(st,st,uu(1:gap:end,1:gap:end))
     colorbar
-    xlabel('Time'); ylabel('Residence Time')    
-    %figure;
-    %plot( t, sum(uu(:,:)) ) % total residence in each class against time
+    xlabel('Time'); ylabel('Residence Time')
+    
+    figure;
+    plot( t, sum(uu(:,:),2) ) % total residence in each class against time
 end
