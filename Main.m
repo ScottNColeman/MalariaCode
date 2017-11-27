@@ -33,15 +33,13 @@ end
 
 %%
 % Plot colour maps
-for i = 1:size(u,3)
-    gap = 1; % If takes ages to plot, increase this to plot less values
+uInitu = [uInit;u];
+gap = 1; % If takes ages to plot, increase this to plot less values
+st = transpose((0:gap:numSteps)*stepSize);
+for i = 1:size(uInitu,3)
     figure;
-    %uu = transpose(u(:,:,i));
-    uu = [uInit;u];
-    %contourf(t(1:gap:end), s(1:gap:end), uu(1:gap:end,1:gap:end))
-    contourf(transpose((0:gap:numSteps)*stepSize),...
-            transpose((0:gap:numSteps)*stepSize),...
-            uu(1:gap:end,1:gap:end,i))
+    uu = transpose(uInitu(:,:,i));
+    contourf(st,st,uu(1:gap:end,1:gap:end))
     colorbar
     xlabel('Time'); ylabel('Residence Time')    
     %figure;
