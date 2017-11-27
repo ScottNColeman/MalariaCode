@@ -35,9 +35,10 @@ end
 for i = 1:size(u,3)
     gap = 1; % If takes ages to plot, increase this to plot less values
     figure;
-    contourf(t(1:gap:end), s(1:gap:end), u(1:gap:end,1:gap:end,i))
+    uu = transpose(u(:,:,i));
+    contourf(t(1:gap:end), s(1:gap:end), uu(1:gap:end,1:gap:end))
     colormap;
     xlabel('Time'); ylabel('Residence Time')    
     figure;
-    plot( t, sum(u(:,:,i)) ) % total residence in each class against time
+    plot( t, sum(uu(:,:)) ) % total residence in each class against time
 end
