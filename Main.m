@@ -1,11 +1,10 @@
 % Initial matrices to store t and s values
-t = linspace(0,30,13); % uses n index - WORKS FOR 13, NOT FOR 10
-s = t; % uses m index, half of these values are useless
 numSteps = 20;
-
-
 % MATT - Time step:
 stepSize = 1;
+
+t = (0:numSteps) * stepSize; % uses n index
+s = t; % uses m index, half of these values are useless
 
 % MATT - current model iteration.
 model = 1;
@@ -35,14 +34,15 @@ end
 % Plot colour maps
 uInitu = [uInit;u];
 gap = 1; % If takes ages to plot, increase this to plot less values
-st = transpose((0:gap:numSteps)*stepSize);
+%st = transpose((0:gap:numSteps)*stepSize);
 for i = 1:size(uInitu,3)
     figure;
     uu = transpose(uInitu(:,:,i));
-    contourf(st,st,uu(1:gap:end,1:gap:end))
+    contourf(t(1:gap:end), s(1:gap:end), uu(1:gap:end,1:gap:end))
     colorbar
     xlabel('Time'); ylabel('Residence Time')
     
     figure;
     plot( t, sum(uu(:,:),2) ) % total residence in each class against time
+    xlabel('Time'); ylabel('Population')
 end
