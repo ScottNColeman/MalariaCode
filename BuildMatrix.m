@@ -14,24 +14,20 @@ switch model
                         MAT(1,1,hSus) = 0.9;
                         MAT(1,1,hInf) = 0.1;
                         MAT(1,1,mSus) = 1;
-                        MAT = 1000*MAT;
+                        MAT = 1000*MAT;%%optional
                 end
             case 'P'
                 r = 0.001;
                 c = 0.002;
                 MAT = zeros(classes);
-                MAT(hSus,hInf) = r;
-                MAT(hInf,hSus) = -r;
-                MAT(mSus,mInf) = c;
-                MAT(mInf,mSus) = -c;
+                MAT(hInf,hInf) = r;
+                MAT(mInf,mInf) = c;
             case 'Q'
                 i = 0.00001;
                 b = 0.00002;
                 MAT = zeros(classes,classes,classes);
-                MAT(hSus,mInf,hSus) = -i;
-                MAT(hSus,mInf,hInf) = i;
-                MAT(hInf,mSus,mSus) = -b;
-                MAT(hInf,mSus,mInf) = b;
+                MAT(hSus,mInf,hSus) = i;
+                MAT(hInf,mSus,mSus) = b;
                 for     q = 1:size(MAT,3)
                     MAT(:,:,q) = MAT(:,:,q) + MAT(:,:,q)';
                 end

@@ -1,4 +1,4 @@
-function new_u = PartialDifferentialEquation(model,u)%,t,dt)
+function new_u = PartialDifferentialEquation(model,u,stepSize,tStep)%,t,dt)
 % PARTIALDIFFERENTIALEQUATION returns the new u values for all s at the
 % next time interval
 %
@@ -15,10 +15,11 @@ function new_u = PartialDifferentialEquation(model,u)%,t,dt)
 
 % MATT - starting to include proper equations...
 uAdv = [zeros(1,1,size(u,3)),u(1,1:end-1,:)];
-uLeave = DirectionalDerivative(model,uAdv);
+S = ((1:tStep)-1)*stepSize;
+uLeave = DirectionalDerivative(model,uAdv,S,tStep);
 new_u = uAdv -uLeave;
 % Apply boundary condition at s = 0
-new_u(1,1,:) = BoundaryConditions(model,uAdv);
+new_u(1,1,:) = BoundaryConditions(model,uAdv,S,tStep);
 % MATT - ...end of current edit section
 
 %%%
