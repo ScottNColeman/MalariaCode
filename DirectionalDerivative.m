@@ -5,7 +5,7 @@ function du = DirectionalDerivative(model,u,S,tStep)
 %               resident time step i.e. u^(m-1)_(n-1) for all classes
 % OUTPUTS: du - the vector of (du/dt + du/ds) for each class (1 x 1 x I)
 du = zeros(size(u));
-for     s1 = 1:tStep
+for     s1 = 1:tStep % Should these be from index 1, considering uAdv(1) = 0
     for     s2 = 1:tStep
         P = BuildMatrix(model,'P',S(s1),S(s2),0);
         u_s2 = reshape(u(1,s2,:),size(u,3),1);
