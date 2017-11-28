@@ -3,8 +3,9 @@ function u0 = BoundaryConditions(model,u,S,tStep)
 %
 % INPUTS:  u  - residents in each of the classes at each residence times
 % OUTPUTS: u0 - vector of u^(m+1)_0 values for each of the I classes
+ds = S(2)-S(1);
 u0 = zeros(1,1,size(u,3));
-for     s1 = 1:tStep
+for     s1 = 2:tStep
     A = BuildMatrix(model,'A',S(s1),0,0);
     for     s2 = 1:tStep
         P = BuildMatrix(model,'P',S(s1),S(s2),0);
@@ -20,7 +21,7 @@ for     s1 = 1:tStep
                             A(j,i)*transpose(u_s2)*Q(:,:,j)*u_s3;
                 end
             end
-            u0(1,1,i) = u0(1,1,i) +ATPu(i) +int_auTQu;
+            u0(1,1,i) = u0(1,1,i) +(ATPu(i) +int_auTQu*ds)*ds^2;
         end
     end
  end

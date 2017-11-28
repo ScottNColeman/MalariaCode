@@ -29,7 +29,7 @@ switch model
                 MAT(hSus,mInf,hSus) = i;
                 MAT(hInf,mSus,mSus) = b;
                 for     q = 1:size(MAT,3)
-                    MAT(:,:,q) = MAT(:,:,q) + MAT(:,:,q)';
+                    MAT(:,:,q) = (MAT(:,:,q) + transpose(MAT(:,:,q)))/2;
                 end
             case 'A'
                 MAT = zeros(classes,classes);
