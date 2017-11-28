@@ -15,6 +15,11 @@ switch model
                         MAT(1,1,hInf) = 0.1;
                         MAT(1,1,mSus) = 1;
                         MAT = 1000*MAT;%%optional
+                    case 2
+                        MAT(1,1,hSus) = 0.5;
+                        MAT(1,1,hInf) = 0.5;
+                        MAT(1,1,mSus) = 0.5;
+                        MAT(1,1,mInf) = 0.5;
                 end
             case 'P'
                 r = 0.001;
