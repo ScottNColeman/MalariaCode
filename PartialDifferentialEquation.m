@@ -21,7 +21,7 @@ new_u = uAdv - uLeave;
 % Apply boundary condition at s = 0
 new_u(1,1,:) = BoundaryConditions(model,uAdv,S,tStep); % JAMES - times by stepSize?
 % MATT - ...end of current edit section
-bob = 0;
+%bob = 0;
 %%%
 %%%% Calculate changes in different classes
 %%%for m = 2:length(s)

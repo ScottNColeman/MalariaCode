@@ -7,6 +7,7 @@ function du = DirectionalDerivative(model,u,S,tStep)
 ds = S(2)-S(1);
 du = zeros(size(u));
 for     s1 = 2:tStep % Should these be from index 1, considering uAdv(1) = 0
+    %A = BuildMatrix(model,'A',S(s1),0,0);
     for     s2 = 1:tStep
         P = BuildMatrix(model,'P',S(s1),S(s2),0);
         u_s2 = reshape(u(1,s2,:),size(u,3),1);
@@ -21,3 +22,4 @@ for     s1 = 2:tStep % Should these be from index 1, considering uAdv(1) = 0
         end
     end
 end
+
