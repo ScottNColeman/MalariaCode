@@ -20,16 +20,30 @@ switch model
                         MAT(1,1,hInf) = 0.5;
                         MAT(1,1,mSus) = 0.5;
                         MAT(1,1,mInf) = 0.5;
+                    case 3
+                        r = 1/14;
+                        c = 1/6;
+                        i = 1/20;
+                        b = 1/2;
+                        
+                        MAT(1,1,hSus) = (r*(b+c))/(b*(i+r));
+                        MAT(1,1,hInf) = (b*i-c*r)/(b*(i+r));
+                        MAT(1,1,mSus) = (c*(i+r))/(i*(b+c));
+                        MAT(1,1,mInf) = (b*i-c*r)/(i*(b+c));
                 end
             case 'P'
-                r = 0.001;
-                c = 0.002;
+                %r = 0.001;
+                r = 1/14;
+                %c = 0.002;
+                c = 1/6;
                 MAT = zeros(classes);
                 MAT(hInf,hInf) = r;
                 MAT(mInf,mInf) = c;
             case 'Q'
-                i = 0.00001;
-                b = 0.00002;
+                %i = 0.00001;
+                i = 1/20;
+                %b = 0.00002;
+                b = 1/2;
                 MAT = zeros(classes,classes,classes);
                 MAT(hSus,mInf,hSus) = i;
                 MAT(hInf,mSus,mSus) = b;

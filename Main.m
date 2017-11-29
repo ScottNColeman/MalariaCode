@@ -1,7 +1,7 @@
 % Initial matrices to store t and s values
-numSteps = 20;
+numSteps = 100;
 % MATT - Time step:
-stepSize = 1;
+stepSize = 0.02;
 
 t = (0:numSteps) * stepSize; % uses n index
 s = t; % uses m index, half of these values are useless
@@ -9,7 +9,7 @@ s = t; % uses m index, half of these values are useless
 % MATT - current model iteration.
 model = 1;
 % MATT - initial condition index.
-startInd = 1;
+startInd = 3;
 
 % Initialise each class
 %%%I = 2; % number of classes
