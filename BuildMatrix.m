@@ -30,6 +30,11 @@ switch model
                         MAT(1,1,hInf) = (b*i-c*r)/(b*(i+r));
                         MAT(1,1,mSus) = (c*(i+r))/(i*(b+c));
                         MAT(1,1,mInf) = (b*i-c*r)/(i*(b+c));
+                    case 4
+                        MAT(1,1,hSus) = 1;
+                        MAT(1,1,hInf) = 0;
+                        MAT(1,1,mSus) = 1;
+                        MAT(1,1,mInf) = 0;
                 end
             case 'P'
                 %r = 0.001;
