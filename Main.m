@@ -1,5 +1,5 @@
 % Initial matrices to store t and s values
-numSteps = 10;
+numSteps = 30;
 % MATT - Time step:
 stepSize = 0.02;
 

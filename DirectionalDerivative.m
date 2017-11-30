@@ -4,7 +4,7 @@ function du = DirectionalDerivative(model,u,S,tStep)
 % INPUTS:  u  - residents in each of the I classes at the previous time and
 %               resident time step i.e. u^(m-1)_(n-1) for all classes
 % OUTPUTS: du - the vector of (du/dt + du/ds) for each class (1 x 1 x I)
-ds = S(2)-S(1);
+ds = S(2);
 du = zeros(size(u));
 for     s1 = 2:tStep % Should these be from index 1, considering uAdv(1) = 0
     %A = BuildMatrix(model,'A',S(s1),0,0);

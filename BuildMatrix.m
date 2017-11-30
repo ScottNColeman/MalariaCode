@@ -9,33 +9,34 @@ switch model
         switch matstr
             case 'uInit'
                 MAT = zeros(1,s2,classes);
-                switch s1
-                    case 1
-                        MAT(1,1,hSus) = 0.9;
-                        MAT(1,1,hInf) = 0.1;
-                        MAT(1,1,mSus) = 1;
-                        MAT = 1000*MAT;%%optional
-                    case 2
-                        MAT(1,1,hSus) = 0.5;
-                        MAT(1,1,hInf) = 0.5;
-                        MAT(1,1,mSus) = 0.5;
-                        MAT(1,1,mInf) = 0.5;
-                    case 3
-                        r = 1/14;
-                        c = 1/6;
-                        i = 1/20;
-                        b = 1/2;
-                        
-                        MAT(1,1,hSus) = (r*(b+c))/(b*(i+r));
-                        MAT(1,1,hInf) = (b*i-c*r)/(b*(i+r));
-                        MAT(1,1,mSus) = (c*(i+r))/(i*(b+c));
-                        MAT(1,1,mInf) = (b*i-c*r)/(i*(b+c));
-                    case 4
-                        MAT(1,1,hSus) = 1;
-                        MAT(1,1,hInf) = 0;
-                        MAT(1,1,mSus) = 1;
-                        MAT(1,1,mInf) = 0;
-                end
+                MAT(1,1,:) = reshape(s1,1,1,classes);
+%                 switch s1
+%                     case 1
+%                         MAT(1,1,hSus) = 0.9;
+%                         MAT(1,1,hInf) = 0.1;
+%                         MAT(1,1,mSus) = 1;
+%                         MAT = 1000*MAT;%%optional
+%                     case 2
+%                         MAT(1,1,hSus) = 0.5;
+%                         MAT(1,1,hInf) = 0.5;
+%                         MAT(1,1,mSus) = 0.5;
+%                         MAT(1,1,mInf) = 0.5;
+%                     case 3
+%                         r = 1/14;
+%                         c = 1/6;
+%                         i = 1/20;
+%                         b = 1/2;
+%                         
+%                         MAT(1,1,hSus) = (r*(b+c))/(b*(i+r));
+%                         MAT(1,1,hInf) = (b*i-c*r)/(b*(i+r));
+%                         MAT(1,1,mSus) = (c*(i+r))/(i*(b+c));
+%                         MAT(1,1,mInf) = (b*i-c*r)/(i*(b+c));
+%                     case 4
+%                         MAT(1,1,hSus) = 1;
+%                         MAT(1,1,hInf) = 0;
+%                         MAT(1,1,mSus) = 0.9;
+%                         MAT(1,1,mInf) = 0.1;
+%                 end
             case 'P'
                 %r = 0.001;
                 r = 1/14;
