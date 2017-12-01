@@ -16,10 +16,12 @@ function new_u = PartialDifferentialEquation(model,u,stepSize,tStep)%,t,dt)
 % MATT - starting to include proper equations...
 uAdv = [zeros(1,1,size(u,3)),u(1,1:end-1,:)];
 S = ((1:tStep)-1)*stepSize;
-uLeave = DirectionalDerivative(model,uAdv,S,tStep); % JAMES - times by stepSize?
+%%%%%%%%%%%%%%%uLeave = DirectionalDerivative(model,uAdv,S,tStep); % JAMES - times by stepSize?
+uLeave = DirecDeriv2(model,uAdv,S,tStep);
 new_u = uAdv - uLeave;
 % Apply boundary condition at s = 0
-new_u(1,1,:) = BoundaryConditions(model,uAdv,S,tStep); % JAMES - times by stepSize?
+%%%%%%%%%%%%%%%new_u(1,1,:) = BoundaryConditions(model,uAdv,S,tStep); % JAMES - times by stepSize?
+new_u(1,1,:) = BoundConds2(model,uAdv,S,tStep);
 bob = 0;
 % MATT - ...end of current edit section
 %bob = 0;

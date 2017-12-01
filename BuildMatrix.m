@@ -58,7 +58,7 @@ switch model
                 %for     q = 1:size(MAT,3)
                 %    MAT(:,:,q) = (MAT(:,:,q) + transpose(MAT(:,:,q)))/2;
                 %end
-                MAT = MAT*1000;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                MAT = MAT*100000;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
             case 'A'
                 MAT = zeros(classes,classes);
                 MAT(hSus,hInf) = 1;
