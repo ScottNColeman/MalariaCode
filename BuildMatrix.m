@@ -43,19 +43,22 @@ switch model
                 %c = 0.002;
                 c = 1/6;
                 MAT = zeros(classes);
-                MAT(hInf,hInf) = r;
-                MAT(mInf,mInf) = c;
+                MAT(hInf,hInf) = r*(s1==s2);
+                MAT(mInf,mInf) = c*(s1==s2);
             case 'Q'
                 %i = 0.00001;
                 i = 1/20;
                 %b = 0.00002;
                 b = 1/2;
                 MAT = zeros(classes,classes,classes);
-                MAT(hSus,mInf,hSus) = i;
-                MAT(hInf,mSus,mSus) = b;
-                for     q = 1:size(MAT,3)
-                    MAT(:,:,q) = (MAT(:,:,q) + transpose(MAT(:,:,q)))/2;
-                end
+                MAT(hSus,mInf,hSus) = i*(s1==s2);
+                MAT(mInf,hSus,hSus) = i*(s1==s3);
+                MAT(hInf,mSus,mSus) = b*(s1==s2);
+                MAT(mSus,hInf,mSus) = b*(s1==s3);
+                %for     q = 1:size(MAT,3)
+                %    MAT(:,:,q) = (MAT(:,:,q) + transpose(MAT(:,:,q)))/2;
+                %end
+                MAT = MAT*1000;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
             case 'A'
                 MAT = zeros(classes,classes);
                 MAT(hSus,hInf) = 1;
