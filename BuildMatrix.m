@@ -53,7 +53,7 @@ switch model
                 MAT = zeros(classes,classes,classes);
                 MAT(hSus,mInf,hSus) = i*(s1==s2);
                 %MAT(mInf,hSus,hSus) = i*(s1==s3);
-                MAT(hInf,mSus,mSus) = b*(s1==s2);
+                MAT(mSus,hInf,mSus) = b*(s1==s2);
                 %MAT(mSus,hInf,mSus) = b*(s1==s3);
                 %for     q = 1:size(MAT,3)
                 %    MAT(:,:,q) = (MAT(:,:,q) + transpose(MAT(:,:,q)))/2;
