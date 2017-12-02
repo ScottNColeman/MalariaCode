@@ -10,16 +10,15 @@ for     i = 1:size(u0,3)
         A = BuildMatrix(model,'A',S(s1),0,0);
         P = BuildMatrix(model,'P',S(s1),S(s1),0);
         u_s1 = reshape(u(1,s1,:),size(u,3),1);
-        ATPu = transpose(A)*P*u_s1;
+        ATPu = transpose(A)*P*u_s1*ds^2;
         u0(1,1,i) = u0(1,1,i) +ATPu(i);
         for     j = 1:size(u0,3)
             for     s2 = 1:tStep
-                Qa = BuildMatrix(model,'Q',S(s1),S(s2),S(s1));
-                Qb = BuildMatrix(model,'Q',S(s1),S(s1),S(s2));
+                %Qa = BuildMatrix(model,'Q',S(s1),S(s2),S(s1));
+                Q = BuildMatrix(model,'Q',S(s1),S(s1),S(s2));
                 u_s2 = reshape(u(1,s2,:),size(u,3),1);
                 u0(1,1,i) = u0(1,1,i) +...
-                        (A(j,i)*transpose(u_s2)*Qa(:,:,j)*u_s1 +...
-                        A(j,i)*transpose(u_s1)*Qb(:,:,j)*u_s2)*ds^3;
+                        A(j,i)*transpose(u_s1)*Q(:,:,j)*u_s2*ds^3;
             end
         end
     end

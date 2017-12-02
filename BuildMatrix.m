@@ -52,13 +52,13 @@ switch model
                 b = 1/2;
                 MAT = zeros(classes,classes,classes);
                 MAT(hSus,mInf,hSus) = i*(s1==s2);
-                MAT(mInf,hSus,hSus) = i*(s1==s3);
+                %MAT(mInf,hSus,hSus) = i*(s1==s3);
                 MAT(hInf,mSus,mSus) = b*(s1==s2);
-                MAT(mSus,hInf,mSus) = b*(s1==s3);
+                %MAT(mSus,hInf,mSus) = b*(s1==s3);
                 %for     q = 1:size(MAT,3)
                 %    MAT(:,:,q) = (MAT(:,:,q) + transpose(MAT(:,:,q)))/2;
                 %end
-                MAT = MAT*100000;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %MAT = MAT*100000;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
             case 'A'
                 MAT = zeros(classes,classes);
                 MAT(hSus,hInf) = 1;
