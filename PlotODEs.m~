@@ -1,7 +1,7 @@
-function PlotODEs(Model,Timespan,Stepsize)
+function PlotODEs(Model)
 tic
 % Creates Timespace
-t = linspace(0,Timespan,(Timespan/Stepsize));
+t = linspace(0,500,2000);
 
 % Ratio of mosquitos to humans
 M = 1;
@@ -18,13 +18,14 @@ b = 1/2;    % biting rate
 %b = 0.00002;
 N = 1/10;   % incubation period/rate
 
-O = 0.1;   % likelihood of human receiving treatment 
+O = 0.98;   % likelihood of human receiving treatment 
 
 p = 1/180; % Mosquito birth rate
 
-q = 1/5; % Mosquito death rate
+q = 1/12; % Mosquito death rate
 
-m = 1/2; % Mosquito maturity rate
+m = 1/5; % Mosquito maturity rate
+
 
 %% Create non-linear ODE
 
@@ -69,25 +70,14 @@ end
 opts = odeset('RelTol',1e-3, 'AbsTol' ,1e-6);
 [t,x] = ode45(f,t,x0,opts);
 
-%% Plot the results
+%% Plot 
 
 
 % plot(t,ones(size(t))*x2(1),'b--')
 % plot(t,ones(size(t))*x2(2),'g--')
 % plot(t,ones(size(t))*x2(3),'r--')
 
-if Model == 1
-    figure;
-    plot(t,x(:,1),'b-',t,x(:,2),'r-',t,x(:,3),'k-');
-    legend('Sus','Inf','Dead')
-    xlabel('Time'); ylabel('Relative Population')
-    title('Humans')
-    figure;
-    plot(t,x(:,4),'c-',t,x(:,5),'m-');
-    legend('Sus','Inf');
-    xlabel('Time'); ylabel('Relative Population')
-    title('Mosquitoes');
-elseif Model == 2 || Model == 3
+if Model == 3
     figure;
     plot(t,x(:,1),'b-',t,x(:,2),'g-',t,x(:,3),'r-',t,x(:,4),'k-');
     legend('Sus','Inf (no)','Inf (yes)','Dead')
@@ -120,7 +110,7 @@ elseif Model == 5
     legend('Young','Sus','Inf','Dead');
     xlabel('Time'); ylabel('Relative Population')
     title('Mosquitoes');
-end
+
 % plot(t,ones(size(t))*x2(4),'c--')
 % plot(t,ones(size(t))*x2(5),'m--')
 
