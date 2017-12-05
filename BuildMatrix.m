@@ -66,4 +66,73 @@ switch model
                 MAT(mSus,mInf) = 1;
                 MAT(mInf,mSus) = 1;
         end
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    case 2
+        classes = 5;
+        hSus = 1;
+        hInf = 2;
+        hDead = 3;
+        mSus = 4;
+        mInf = 5;
+        d = 1/2;
+        r = 1/14;
+        c = 1/6;
+        i = 1/20;
+        b = 1/2;
+        switch matstr
+            case 'uInit'
+                MAT = zeros(1,s2,classes);
+                MAT(1,1,:) = reshape(s1,1,1,classes);
+            case 'P'              
+                MAT = zeros(classes);
+                MAT(hInf,hInf) = (r+d)*(s1==s2);
+                MAT(mInf,mInf) = c*(s1==s2);
+            case 'Q'
+                MAT = zeros(classes,classes,classes);
+                MAT(hSus,mInf,hSus) = i*(s1==s2);
+                MAT(mSus,hInf,mSus) = b*(s1==s2);
+            case 'A'
+                MAT = zeros(classes,classes);
+                MAT(hSus,hInf) = 1;
+                MAT(hInf,hSus) = r/(r+d);
+                MAT(hInf,hDead) = d/(r+d);
+                MAT(mSus,mInf) = 1;
+                MAT(mInf,mSus) = 1;
+        end
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    case 3
+        classes = 5;
+        hSus = 1;
+        hInf = 2;
+       
+        hDead = 3;
+        mSus = 4;
+        mInf = 5;
+        d = 1/2;
+        r = 1/14;
+        c = 1/6;
+        i = 1/20;
+        b = 1/2;
+        switch matstr
+            case 'uInit'
+                MAT = zeros(1,s2,classes);
+                MAT(1,1,:) = reshape(s1,1,1,classes);
+            case 'P'              
+                MAT = zeros(classes);
+                MAT(hInf,hInf) = (r+d)*(s1==s2);
+                MAT(mInf,mInf) = c*(s1==s2);
+            case 'Q'
+                MAT = zeros(classes,classes,classes);
+                MAT(hSus,mInf,hSus) = i*(s1==s2);
+                MAT(mSus,hInf,mSus) = b*(s1==s2);
+            case 'A'
+                MAT = zeros(classes,classes);
+                MAT(hSus,hInf) = 1;
+                MAT(hInf,hSus) = r/(r+d);
+                MAT(hInf,hDead) = d/(r+d);
+                MAT(mSus,mInf) = 1;
+                MAT(mInf,mSus) = 1;
+        end
 end
