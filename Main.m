@@ -1,5 +1,5 @@
 % Initial matrices to store t and s values
-t = linspace(0,300,601); % uses n index
+t = linspace(0,301,601); % uses n index
 s = t; % uses m index, half of these values are useless
 
 % Horrible global variables
@@ -48,6 +48,14 @@ for i = 1:size(u,3)
     %colorbar
     %xlabel('Time'); ylabel('Residence Time')
     
+    %figure;
+    %plot(s,u(:,end,i))
+    (sum(transpose(s).*u(:,end,i)))/(sum(u(:,end,i)))
+    
+    %figure;
+    %plot(s,u(:,end-100,i))
+    %sum(transpose(s).*u(:,end-100,i))/(sum(u(:,end-100,i)))
+    
     figure;
     plot( t, sum(u(:,:,i),1) ) % total residence in each class against time
     xlabel('Time'); ylabel('Population')
@@ -55,3 +63,32 @@ for i = 1:size(u,3)
     plot(t,Init(i)*ones(size(t)),'--')
     %ylim([0,1])
 end
+
+%%
+class = 1;
+
+switch class
+    case 1
+        % H1
+        a = (R*(B*I-C*R))/(B*(I+R));
+        b = (B*I-C*R)/(B+C);
+    case 2
+        % H2
+        a = (R*(B*I-C*R))/(B*(I+R));
+        b = R;
+    case 3
+        % M1
+        a = (C*(B*I-C*R))/(I*(B+C));
+        b = (B*I-C*R)/(I+R);
+    case 4
+        % M2
+        a = (C*(B*I-C*R))/(I*(B+C));
+        b = C;
+end
+
+u_pred = (s(2)-s(1))*a*(1-(s(2)-s(1))*b).^(0:length(s)-1);
+
+figure;
+plot(s,u(:,end,class),'r-')
+hold on
+plot(s,u_pred,'g--')
