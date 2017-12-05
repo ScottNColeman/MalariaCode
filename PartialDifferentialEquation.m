@@ -1,4 +1,4 @@
-function new_u = PartialDifferentialEquation(u,t,dt)
+function new_u = PartialDifferentialEquation(u,t,dt,model)
 % PARTIALDIFFERENTIALEQUATION returns the new u values for all s at the
 % next time interval
 %
@@ -15,11 +15,11 @@ s = linspace(0,t,M+1);
 new_u = zeros(size(u));
 
 % Apply boundary condition at s = 0
-new_u(1,1,:) = dt * BoundaryConditions(u,s);
+new_u(1,1,:) = dt * BoundaryConditions(u,s,model);
 
 % Calculate changes in different classes
 for m = 2:length(s)
-    new_u(m,1,:) = u(m-1,1,:) - dt * DirectionalDerivative(u,m,s);
+    new_u(m,1,:) = u(m-1,1,:) - dt * DirectionalDerivative(u,m,s,model);
 end
 % new_u(m,1,:) = u(m-1,1,:) + dt * DirectionalDerivative( u(m-1,1,:) );
 

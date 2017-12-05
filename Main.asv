@@ -1,5 +1,5 @@
 % Initial matrices to store t and s values
-t = linspace(0,101,1001); % uses n index
+t = linspace(0,301,601); % uses n index
 s = t; % uses m index, half of these values are useless
 
 % MATT - current model iteration.
@@ -14,8 +14,7 @@ Init = [(R*(B+C))/(B*(I+R));
 u = zeros(length(t),length(s),4);
 
 % Initial conditions
-u(1,1,:) = [0.9,0.1,1,0]; % must be size I x 1
-%u(1,1,:) = [1,0,0.9,0.1];
+u(1,1,:) = [0.9,0.1,0.5,0.5]; % must be size I x 1
 %u(1,1,:) = Init;
 disp(1)
 
