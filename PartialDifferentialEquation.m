@@ -22,7 +22,7 @@ new_u = uAdv - uLeave;
 % Apply boundary condition at s = 0
 %%%%%%%%%%%%%%%new_u(1,1,:) = BoundaryConditions(model,uAdv,S,tStep); % JAMES - times by stepSize?
 new_u(1,1,:) = BoundConds2(model,uAdv,S,tStep)*stepSize;
-bob = 0;
+
 % MATT - ...end of current edit section
 %bob = 0;
 %%%
