@@ -6,8 +6,14 @@ switch model
         hInf = 2;
         mSus = 3;
         mInf = 4;
-        switch matstr
-            case 'uInit'
+        matureInt = [5,14];
+        lifeSpan = 60;
+        switch  matstr
+            case    'uAge'
+                MAT = zeros(1,s2,classes);
+                inds = s3>matureInt(end) & s3<lifeSpan;
+                MAT(1,inds,mSus) = inds/sum(inds);
+            case    'uInit'
                 MAT = zeros(1,s2,classes);
                 MAT(1,1,:) = reshape(s1,1,1,classes);
 %                 switch s1
@@ -37,7 +43,7 @@ switch model
 %                         MAT(1,1,mSus) = 0.9;
 %                         MAT(1,1,mInf) = 0.1;
 %                 end
-            case 'P'
+            case    'P'
                 %r = 0.001;
                 r = 1/14;
                 %c = 0.002;
@@ -45,7 +51,7 @@ switch model
                 MAT = zeros(classes);
                 MAT(hInf,hInf) = r*(s1==s2);
                 MAT(mInf,mInf) = c*(s1==s2);
-            case 'Q'
+            case    'Q'
                 %i = 0.00001;
                 i = 1/20;
                 %b = 0.00002;
@@ -59,7 +65,7 @@ switch model
                 %    MAT(:,:,q) = (MAT(:,:,q) + transpose(MAT(:,:,q)))/2;
                 %end
                 %MAT = MAT*100000;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            case 'A'
+            case    'A'
                 MAT = zeros(classes,classes);
                 MAT(hSus,hInf) = 1;
                 MAT(hInf,hSus) = 1;
@@ -68,7 +74,7 @@ switch model
         end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    case 2
+    case    2
         classes = 5;
         hSus = 1;
         hInf = 2;
@@ -80,19 +86,19 @@ switch model
         c = 1/6;
         i = 1/20;
         b = 1/2;
-        switch matstr
-            case 'uInit'
+        switch  matstr
+            case    'uInit'
                 MAT = zeros(1,s2,classes);
                 MAT(1,1,:) = reshape(s1,1,1,classes);
-            case 'P'              
+            case    'P'              
                 MAT = zeros(classes);
                 MAT(hInf,hInf) = (r+d)*(s1==s2);
                 MAT(mInf,mInf) = c*(s1==s2);
-            case 'Q'
+            case    'Q'
                 MAT = zeros(classes,classes,classes);
                 MAT(hSus,mInf,hSus) = i*(s1==s2);
                 MAT(mSus,hInf,mSus) = b*(s1==s2);
-            case 'A'
+            case    'A'
                 MAT = zeros(classes,classes);
                 MAT(hSus,hInf) = 1;
                 MAT(hInf,hSus) = r/(r+d);
@@ -102,7 +108,7 @@ switch model
         end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    case 3
+    case    3
         classes = 5;
         hSus = 1;
         hInf = 2;
@@ -115,19 +121,19 @@ switch model
         c = 1/6;
         i = 1/20;
         b = 1/2;
-        switch matstr
-            case 'uInit'
+        switch  matstr
+            case    'uInit'
                 MAT = zeros(1,s2,classes);
                 MAT(1,1,:) = reshape(s1,1,1,classes);
-            case 'P'              
+            case    'P'              
                 MAT = zeros(classes);
                 MAT(hInf,hInf) = (r+d)*(s1==s2);
                 MAT(mInf,mInf) = c*(s1==s2);
-            case 'Q'
+            case    'Q'
                 MAT = zeros(classes,classes,classes);
                 MAT(hSus,mInf,hSus) = i*(s1==s2);
                 MAT(mSus,hInf,mSus) = b*(s1==s2);
-            case 'A'
+            case    'A'
                 MAT = zeros(classes,classes);
                 MAT(hSus,hInf) = 1;
                 MAT(hInf,hSus) = r/(r+d);

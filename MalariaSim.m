@@ -9,13 +9,21 @@ s = t; % uses m index, half of these values are useless
 
 % Initial conditions
 uInit = BuildMatrix(model,'uInit',init,numSteps+1,0);
+uAge1 = BuildMatrix(model,'uAge',0,numSteps+1,t);
+
 %%%u(1,1,:) = [1,0]; % must be size I x 1
 
 u = zeros(numSteps,numSteps+1,size(uInit,3));
-u(1,:,:) = PartialDifferentialEquation(model,uInit,stepSize,2);
+uAge = zeros(numSteps,numSteps+1,size(uAge1,3));
+[new_u,new_age] = PartialDifferentialEquation(model,uInit,uAge1,stepSize,2);
+u(1,:,:) = new_u;
+uAge(1,:,:) = new_age;
+
 disp(1)
 for n = 2:numSteps
-    u(n,:,:) = PartialDifferentialEquation(model,u(n-1,:,:),stepSize,n+1);%, t(n), t(n)-t(n-1));
+    [new_u,new_age] = PartialDifferentialEquation(model,u(n-1,:,:),uAge(n-1,:,:),stepSize,n+1);
+    u(n,:,:) = new_u;
+    uAge(n,:,:) = new_age;
     disp(n)
 end
 % MATT - Previously u(:,n,:) was used, potentially inconsistent with u =

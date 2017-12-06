@@ -1,4 +1,4 @@
-function new_u = PartialDifferentialEquation(model,u,stepSize,tStep)%,t,dt)
+function new_u = PartialDifferentialEquation(model,u,age,stepSize,tStep)%,t,dt)
 % PARTIALDIFFERENTIALEQUATION returns the new u values for all s at the
 % next time interval
 %
