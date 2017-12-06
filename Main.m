@@ -1,14 +1,19 @@
 % Initial matrices to store t and s values
-t = linspace(0,101,1001); % uses n index
+t = linspace(0,121,1201); % uses n index
 s = t; % uses m index, half of these values are useless
 
 % MATT - current model iteration.
 model = 2;
 
-Init = [(R*(B+C))/(B*(I+R));
-        (B*I-C*R)/(B*(I+R));
-        (C*(I+R))/(I*(B+C));
-        (B*I-C*R)/(I*(B+C))];
+i = 1/20;
+b = 1/2;
+r = 1/14;
+c = 1/6;
+
+Init = [(r*(b+c))/(b*(i+r));
+        (b*i-c*r)/(b*(i+r));
+        (c*(i+r))/(i*(b+c));
+        (b*i-c*r)/(i*(b+c))];
 
 % Initialise each class
 u = zeros(length(t),length(s),4);
@@ -28,31 +33,31 @@ end
 % Plot colour maps
 gap = 1; % If takes ages to plot, increase this to plot less values
 %st = transpose((0:gap:numSteps)*stepSize);
-for i = 1:size(u,3)
+for k = 1:size(u,3)
     figure;
-    contourf(t(201:gap:end), s(201:gap:end), u(201:gap:end,201:gap:end,i))
+    contourf(t(201:gap:end), s(201:gap:end), u(201:gap:end,201:gap:end,k))
     colorbar
     xlabel('Time'); ylabel('Residence Time')
     
     %figure;
-    %test = log(1+u(:,:,i));
+    %test = log(1+u(:,:,k));
     %contourf(t(1:gap:end), s(1:gap:end), test(1:gap:end,1:gap:end))
     %colorbar
     %xlabel('Time'); ylabel('Residence Time')
     
     %figure;
-    %plot(s,u(:,end,i))
-    %(sum(transpose(s).*u(:,end,i)))/(sum(u(:,end,i)));
+    %plot(s,u(:,end,k))
+    %(sum(transpose(s).*u(:,end,k)))/(sum(u(:,end,k)));
     
     %figure;
-    %plot(s,u(:,end-100,i))
-    %sum(transpose(s).*u(:,end-100,i))/(sum(u(:,end-100,i)))
+    %plot(s,u(:,end-100,k))
+    %sum(transpose(s).*u(:,end-100,k))/(sum(u(:,end-100,k)))
     
     figure;
-    plot( t, sum(u(:,:,i),1) ) % total residence in each class against time
+    plot( t, sum(u(:,:,k),1) ) % total residence in each class against time
     xlabel('Time'); ylabel('Population')
     hold on
-    plot(t,Init(i)*ones(size(t)),'--')
+    plot(t,Init(k)*ones(size(t)),'--')
     %ylim([0,1])
 end
 
