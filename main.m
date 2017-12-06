@@ -105,12 +105,11 @@ switch model
         plot(t, sum(u(:, :, k), 1), 'r-', 'LineWidth', LINEWIDTH) % total residence in each class against time
         plot(t, Init(k) * ones(size(t)), 'r--') % analytic equilibrium
 
-        % vline([10 14 10], {'k', 'k', 'k'}, {'Infection', 'Recovery', 'Biting'})
-
         xlabel('Time'); ylabel('Population')
-        legend('Susceptible', 'Susceptible steady state', 'Infected', 'Infected steady state')
+        legend('Susceptible', 'Original susceptible steady state', 'Infected', 'Original infected steady state')
         ylim([0, YLIM_MAX])
-
+        vline(14, 'k', sprintf('Minimum time at which\npeople can recover.'))
+        
         % plot mosquitos 
         figure('Name', 'Mosquitos');
         hold on;
@@ -123,10 +122,8 @@ switch model
         plot(t, sum(u(:, :, k), 1), 'r-', 'LineWidth', LINEWIDTH) % total residence in each class against time
         plot(t, Init(k) * ones(size(t)), 'r--') % analytic equilibrium
 
-        % vline([10 14 10], {'k', 'k', 'k'}, {'Infection', 'Recovery', 'Biting'})
-
         xlabel('Time'); ylabel('Population')
-        legend('Susceptible', 'Susceptible steady state', 'Infected', 'Infected steady state')
+        legend('Susceptible', 'Original susceptible steady state', 'Infected', 'Original infected steady state')
         ylim([0, YLIM_MAX])
 end
 %%
@@ -156,4 +153,5 @@ u_pred = (s(2) - s(1)) * a * (1 - (s(2) - s(1)) * b) .^ (0:length(s) - 1);
 %figure;
 %plot(s,u(:,end,class),'r-')
 %hold on
+
 %plot(s,u_pred,'g--')
