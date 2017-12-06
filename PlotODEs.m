@@ -7,20 +7,20 @@ t = linspace(0,Timespan,(Timespan/Stepsize));
 M = 1;
 
 %% Set Parameters
-y = 19/1000; % Human birth rate
+y = (19/1000)/365; % Human birth rate
 r = 1/14;   % recovery rate with treatment
 
-L = 15/1000; % Natural death rate 
+L = (8/1000)/365; % Natural death rate 
 %r = 0.001;
 i = 1/10;   % infection rate
 %i = 0.00001;
-dn = 75/1000;      % death rate without treatment
+dn = (25/1000)/365;      % death rate without treatment
 
 z = 1/30; % Recovery rate without treatment
-dt = 1/1000; % death rate with treatment
+dt = (1/1000)/365; % death rate with treatment
 c = 1/6;    % "circulation" rate
 %c = 0.002;
-b = 1/12;    % biting rate
+b = 1/2;    % biting rate
 %b = 0.00002;
 N = 1/10;   % incubation period/rate
 
@@ -30,7 +30,7 @@ p = 1/17; % Mosquito birth rate
 
 q = 1/17; % Mosquito death rate
 
-m = 1/5; % Mosquito maturity rate
+m = 1/10; % Mosquito maturity rate
 
 W = 1/10; % Malaria incubation rate in mosquitoes
 
@@ -66,8 +66,9 @@ elseif Model == 4
 % Addition of new Malaria classes: juvenial and dead. Mosquito population
 % depends on birth rate and can rise above what it was initially.
 elseif Model == 5
-    x0 = [1;0;0.0;0;0;0;0.999*M;0;0.001;0];
-    %x0 = [0.999;0;0.001;0;0;0;M;0;0;0];
+    %x0 = [1;0;0.0;0;0;0.499*M;0.5*M;0;0.001;0];
+    %x0 = [0.5;0.5;0;0;0;0.5*M;0.5*M;0*M;0*M;0];
+    x0 = [1;0;0;0;0;0;M;0;0;0];
     %x0 = [1;0;0;0;0;0;M;0;0;0]
     f = @(t,x) [r*x(4)-i*x(1)*x(9)+z*x(3)+y-L*x(1);
         i*x(1)*x(9)-N*x(2)-L*x(2);
@@ -75,11 +76,11 @@ elseif Model == 5
         O*x(3)-(dt+r)*x(4);
         dn*x(3)+dt*x(4)+L*(x(1)+x(2)+x(3));
         %Mosquito classes
-        p-m*x(6);
+        p-m*x(6)-q*x(6);
         m*x(6)-b*x(7)*(x(2)+x(3))-q*x(7);...
         b*x(7)*(x(2)+x(3)) - W*x(8)-q*x(8);
         W*x(8)-q*x(9);
-        q*x(9)+q*x(7)+q*x(8)];
+        q*x(9)+q*x(7)+q*x(8)+q*x(6)];
 end
 
 
@@ -130,13 +131,13 @@ elseif Model == 4
 elseif Model == 5
     figure;
     plot(t,x(:,1),'b-',t,x(:,2),'g-',t,x(:,3),'r-',t,x(:,4),'m-');
-    legend('Sus','Inf (no)','Inf (yes)','Isolation')
-    xlabel('Time'); ylabel('Relative Population')
-    title('Humans')
+    legend('Sus','Inf (no)','Inf (yes)','Isolation');
+    xlabel('Time'); ylabel('Relative Population');
+    title('Humans');
     figure;
     plot(t,x(:,6),'c-',t,x(:,7),'m-',t,x(:,8),'b-',t,x(:,9),'k-');
     legend('Young','Sus','Inf (inc)','Inf');
-    xlabel('Time'); ylabel('Relative Population')
+    xlabel('Time'); ylabel('Relative Population');
     title('Mosquitoes');
 end
 % plot(t,ones(size(t))*x2(4),'c--')
