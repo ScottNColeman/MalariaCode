@@ -1,5 +1,5 @@
 function [value] = C(s,model)
-%R Summary of this function goes here
+% Circulation rate -  rebirth of mosquitoes
 %   Detailed explanation goes here
 % INPUTS:  s - residence time of class M2
 

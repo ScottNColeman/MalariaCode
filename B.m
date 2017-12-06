@@ -1,5 +1,5 @@
 function [value] = B(model,s1,s2)
-%I Summary of this function goes here
+% Biting rate
 %
 % INPUTS:  s1 - residence time of M1
 %          s2 - residence time of H2

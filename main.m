@@ -1,4 +1,4 @@
-function main(model, tmax)
+function main(model, tmax, ic)
 
 % Initial matrices to store t and s values
 t = linspace(0, tmax, 600); % uses n index
@@ -13,14 +13,17 @@ Init = [(r * (b + c)) / (b * (i + r));
         (b * i - c * r) / (b * (i + r));
         (c * (i + r)) / (i * (b + c));
         (b * i - c * r) / (i * (b + c))];
-
 % Initialise each class
 u = zeros(length(t), length(s), 4);
 
 % Initial conditions
-% u(1,1,:) = [0.9, 0.1, 1, 0];
-u(1,1,:) = [1, 0, 0.9, 0.1];
-% u(1,1,:) = Init;
+switch ic
+    case 'ih'
+        u(1,1,:) = [0.9, 0.1, 1, 0];
+    case 'im'
+        u(1,1,:) = [1, 0, 0.9, 0.1];
+end
+
 disp(1)
 
 for n = 2:length(t)
@@ -31,31 +34,31 @@ end
 %% Plotting
 
 % Plot colour maps
-gap = 1; % If takes ages to plot, increase this to plot less values
-%st = transpose((0:gap:numSteps)*stepSize);
+% gap = 1; % If takes ages to plot, increase this to plot less values
+% %st = transpose((0:gap:numSteps)*stepSize);
 
-for k = 1:size(u, 3)
-    % figure;
-    % contourf(t(1:gap:end), s(1:gap:end), u(1:gap:end, 1:gap:end,k))
-    % colorbar
-    % xlabel('Time'); 
-    % ylabel('Residence Time')
+% for k = 1:size(u, 3)
+%     % figure;
+%     % contourf(t(1:gap:end), s(1:gap:end), u(1:gap:end, 1:gap:end,k))
+%     % colorbar
+%     % xlabel('Time'); 
+%     % ylabel('Residence Time')
     
-    %figure;
-    %test = log(1+u(:,:,k));
-    %contourf(t(1:gap:end), s(1:gap:end), test(1:gap:end,1:gap:end))
-    %colorbar
-    %xlabel('Time'); ylabel('Residence Time')
+%     %figure;
+%     %test = log(1+u(:,:,k));
+%     %contourf(t(1:gap:end), s(1:gap:end), test(1:gap:end,1:gap:end))
+%     %colorbar
+%     %xlabel('Time'); ylabel('Residence Time')
     
-    %figure;
-    %plot(s,u(:,end,k))
-    %(sum(transpose(s).*u(:,end,k)))/(sum(u(:,end,k)));
+%     %figure;
+%     %plot(s,u(:,end,k))
+%     %(sum(transpose(s).*u(:,end,k)))/(sum(u(:,end,k)));
     
-    %figure;
-    %plot(s,u(:,end-100,k))
-    %sum(transpose(s).*u(:,end-100,k))/(sum(u(:,end-100,k)))
+%     %figure;
+%     %plot(s,u(:,end-100,k))
+%     %sum(transpose(s).*u(:,end-100,k))/(sum(u(:,end-100,k)))
     
-end
+% end
 
 % plot humans
 figure('Name', 'Humans');
@@ -63,35 +66,69 @@ hold on;
 YLIM_MAX = 1.2;
 LINEWIDTH = 2;
 
-k = 1; % Suspectible humans
-plot(t, sum(u(:, :, k), 1), 'b-', 'LineWidth', LINEWIDTH) % total residence in each class against time
-plot(t, Init(k) * ones(size(t)), 'b--') % analytic equilibrium
+switch model
+    case 1
+        k = 1; % Suspectible humans
+        plot(t, sum(u(:, :, k), 1), 'b-', 'LineWidth', LINEWIDTH) % total residence in each class against time
+        plot(t, Init(k) * ones(size(t)), 'b--') % analytic equilibrium
 
-k = 2; % Infected humans
-plot(t, sum(u(:, :, k), 1), 'r-', 'LineWidth', LINEWIDTH) % total residence in each class against time
-plot(t, Init(k) * ones(size(t)), 'r--') % analytic equilibrium
+        k = 2; % Infected humans
+        plot(t, sum(u(:, :, k), 1), 'r-', 'LineWidth', LINEWIDTH) % total residence in each class against time
+        plot(t, Init(k) * ones(size(t)), 'r--') % analytic equilibrium
 
-xlabel('Time'); ylabel('Population')
-legend('Susceptible', 'Susceptible steady state', 'Infected', 'Infected steady state')
-ylim([0, YLIM_MAX])
+        xlabel('Time'); ylabel('Population')
+        legend('Susceptible', 'Susceptible steady state', 'Infected', 'Infected steady state')
+        ylim([0, YLIM_MAX])
 
-% plot mosquitos 
-figure('Name', 'Mosquitos');
-hold on;
+        % plot mosquitos 
+        figure('Name', 'Mosquitos');
+        hold on;
 
-k = 3; % Suspectible mosquitos
-plot(t, sum(u(:, :, k), 1), 'b-', 'LineWidth', LINEWIDTH) % total residence in each class against time
-plot(t, Init(k) * ones(size(t)), 'b--') % analytic equilibrium
+        k = 3; % Suspectible mosquitos
+        plot(t, sum(u(:, :, k), 1), 'b-', 'LineWidth', LINEWIDTH) % total residence in each class against time
+        plot(t, Init(k) * ones(size(t)), 'b--') % analytic equilibrium
 
-k = 4; % Infected mosquitoes 
-plot(t, sum(u(:, :, k), 1), 'r-', 'LineWidth', LINEWIDTH) % total residence in each class against time
-plot(t, Init(k) * ones(size(t)), 'r--') % analytic equilibrium
+        k = 4; % Infected mosquitoes 
+        plot(t, sum(u(:, :, k), 1), 'r-', 'LineWidth', LINEWIDTH) % total residence in each class against time
+        plot(t, Init(k) * ones(size(t)), 'r--') % analytic equilibrium
 
-xlabel('Time'); ylabel('Population')
-legend('Susceptible', 'Susceptible steady state', 'Infected', 'Infected steady state')
-ylim([0, YLIM_MAX])
+        xlabel('Time'); ylabel('Population')
+        legend('Susceptible', 'Susceptible steady state', 'Infected', 'Infected steady state')
+        ylim([0, YLIM_MAX])
+    
+    case 2
+        k = 1; % Suspectible humans
+        plot(t, sum(u(:, :, k), 1), 'b-', 'LineWidth', LINEWIDTH) % total residence in each class against time
+        plot(t, Init(k) * ones(size(t)), 'b--') % analytic equilibrium
 
+        k = 2; % Infected humans
+        plot(t, sum(u(:, :, k), 1), 'r-', 'LineWidth', LINEWIDTH) % total residence in each class against time
+        plot(t, Init(k) * ones(size(t)), 'r--') % analytic equilibrium
 
+        % vline([10 14 10], {'k', 'k', 'k'}, {'Infection', 'Recovery', 'Biting'})
+
+        xlabel('Time'); ylabel('Population')
+        legend('Susceptible', 'Susceptible steady state', 'Infected', 'Infected steady state')
+        ylim([0, YLIM_MAX])
+
+        % plot mosquitos 
+        figure('Name', 'Mosquitos');
+        hold on;
+
+        k = 3; % Suspectible mosquitos
+        plot(t, sum(u(:, :, k), 1), 'b-', 'LineWidth', LINEWIDTH) % total residence in each class against time
+        plot(t, Init(k) * ones(size(t)), 'b--') % analytic equilibrium
+
+        k = 4; % Infected mosquitoes 
+        plot(t, sum(u(:, :, k), 1), 'r-', 'LineWidth', LINEWIDTH) % total residence in each class against time
+        plot(t, Init(k) * ones(size(t)), 'r--') % analytic equilibrium
+
+        % vline([10 14 10], {'k', 'k', 'k'}, {'Infection', 'Recovery', 'Biting'})
+
+        xlabel('Time'); ylabel('Population')
+        legend('Susceptible', 'Susceptible steady state', 'Infected', 'Infected steady state')
+        ylim([0, YLIM_MAX])
+end
 %%
 class = 1;
 

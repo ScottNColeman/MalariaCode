@@ -1,5 +1,5 @@
 function [value] = R(s,model)
-%R Summary of this function goes here
+% Recovery rate of humans
 %   Detailed explanation goes here
 % INPUTS:  s - residence time of class H2
 
