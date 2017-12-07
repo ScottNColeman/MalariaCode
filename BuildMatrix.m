@@ -10,45 +10,14 @@ switch  model
             case    'uInit'
                 MAT = zeros(1,s2,classes);
                 MAT(1,1,:) = reshape(s1,1,1,classes);
-%                 switch s1
-%                     case 1
-%                         MAT(1,1,hSus) = 0.9;
-%                         MAT(1,1,hInf) = 0.1;
-%                         MAT(1,1,mSus) = 1;
-%                         MAT = 1000*MAT;%%optional
-%                     case 2
-%                         MAT(1,1,hSus) = 0.5;
-%                         MAT(1,1,hInf) = 0.5;
-%                         MAT(1,1,mSus) = 0.5;
-%                         MAT(1,1,mInf) = 0.5;
-%                     case 3
-%                         r = 1/14;
-%                         c = 1/6;
-%                         i = 1/20;
-%                         b = 1/2;
-%                         
-%                         MAT(1,1,hSus) = (r*(b+c))/(b*(i+r));
-%                         MAT(1,1,hInf) = (b*i-c*r)/(b*(i+r));
-%                         MAT(1,1,mSus) = (c*(i+r))/(i*(b+c));
-%                         MAT(1,1,mInf) = (b*i-c*r)/(i*(b+c));
-%                     case 4
-%                         MAT(1,1,hSus) = 1;
-%                         MAT(1,1,hInf) = 0;
-%                         MAT(1,1,mSus) = 0.9;
-%                         MAT(1,1,mInf) = 0.1;
-%                 end
             case    'P'
-                %r = 0.001;
                 r = 1/14;
-                %c = 0.002;
                 c = 1/6;
                 MAT = zeros(classes);
                 MAT(hInf,hInf) = r*(s1==s2);
                 MAT(mInf,mInf) = c*(s1==s2);
             case    'Q'
-                %i = 0.00001;
                 infect = 1/20;
-                %b = 0.00002;
                 b = 1/2;
                 MAT = zeros(classes,classes,classes);
                 MAT(hSus,mInf,hSus) = infect*(s1==s2);
@@ -59,12 +28,16 @@ switch  model
                 %    MAT(:,:,q) = (MAT(:,:,q) + transpose(MAT(:,:,q)))/2;
                 %end
                 %MAT = MAT*100000;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            case    'A'
+            case    'Ap'
+                MAT = zeros(classes,classes);
+                MAT(hInf,hSus) = 1;
+                MAT(mInf,mSus) = 1;
+            case    'Aq'
                 MAT = zeros(classes,classes);
                 MAT(hSus,hInf) = 1;
-                MAT(hInf,hSus) = 1;
                 MAT(mSus,mInf) = 1;
-                MAT(mInf,mSus) = 1;
+            case    'G'
+                MAT = zeros(classes,classes);
         end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -92,13 +65,17 @@ switch  model
                 MAT = zeros(classes,classes,classes);
                 MAT(hSus,mInf,hSus) = infect*(s1==s2);
                 MAT(mSus,hInf,mSus) = b*(s1==s2);
-            case    'A'
+            case    'Ap'
                 MAT = zeros(classes,classes);
-                MAT(hSus,hInf) = 1;
                 MAT(hInf,hSus) = r/(r+d);
                 MAT(hInf,hDead) = d/(r+d);
-                MAT(mSus,mInf) = 1;
                 MAT(mInf,mSus) = 1;
+            case    'Aq'
+                MAT = zeros(classes,classes);
+                MAT(hSus,hInf) = 1;
+                MAT(mSus,mInf) = 1;
+            case    'G'
+                MAT = zeros(classes,classes);
         end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -126,13 +103,16 @@ switch  model
                 MAT = zeros(classes,classes,classes);
                 MAT(hSus,mInf,hSus) = infect*(s1==s2);
                 MAT(mSus,hInf,mSus) = b*(s1==s2);
-            case    'A'
+            case    'Ap'
                 MAT = zeros(classes,classes);
-                MAT(hSus,hInf) = 1;
                 MAT(hInf,hSus) = r/(r+d);
                 MAT(hInf,hDead) = d/(r+d);
-                MAT(mSus,mInf) = 1;
                 MAT(mInf,mSus) = 1;
+            case    'Aq'
+                MAT(hSus,hInf) = 1;
+                MAT(mSus,mInf) = 1;
+            case    'G'
+                MAT = zeros(classes,classes);
         end
     case    4
         classes = 10;
@@ -158,10 +138,10 @@ switch  model
         hBirth = 19/365000;
         mBirth = 1/52;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CHECK
         matureTime = 14;
-        bite = 1/2;
-        infect = 1/20;
+        bite = 1/2;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CHECK
+        infect = 1/20;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CHECK
         mDeath = 1/52;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CHECK
-        incTime = 7;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CHECK
+        incTime = 10;
         switch  matstr
             case    'uInit'
                 MAT = zeros(1,s2,classes);
@@ -177,7 +157,7 @@ switch  model
                 MAT(hInfST,hInfST) = (1-heaviside(treatTime-s1)*...
                         (initDeathTreat/treatTime +1-initDeathTreat))*...
                         (s1==s2);
-                MAT(mJuv,mSus) = heaviside(s1-matureTime)*(s1==s2);
+                MAT(mJuv,mJuv) = heaviside(s1-matureTime)*(s1==s2);
                 MAT(mSus,mSus) = mDeath*(s1==s2);
                 MAT(mInc,mInc) = (mDeath +heaviside(s1-incTime)*...
                         (1-mDeath))*(s1==s2);
