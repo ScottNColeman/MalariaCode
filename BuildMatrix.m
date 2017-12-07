@@ -136,5 +136,48 @@ switch  model
                 MAT(mInf,mSus) = 1;
         end
     case    4
+        classes = 8;
+        hSus = 1;
+        hInf = 2;
+        hInfS = 3;
+        hInfST = 4;
+        mJuv = 5;
+        mSus = 6;
+        mInc = 7; 
+        mInf = 8;
+        
+        SymDevInt = [8,30];
+        RecoveryInt = [7 28];
+        WorstDay = 21;
+        InitRecov = 0.05;
+        TreatAdd = 1/10;
+        r=1/14;
+        c=1/6;
+        i = 1/20;
+        b = 1/2;
+        
+        
+        switch  matstr
+            case    'uInit'
+                MAT = zeros(1,s2,classes);
+                MAT(1,1,:) = reshape(s1,1,1,classes);
+            case    'P'
+                MAT = zeros(classes);
+                MAT(hInf,hInf) = min(1,heaviside(s1-SymDevInt(1))* ... 
+                    (s1-SymDevInt(1))/diff(SymDevInt));
+                MAT(hInfS,hInfS) = 1- min(1-
+            case    'Q'
+
+                MAT = zeros(classes,classes,classes);
+                MAT(hSus,mInf,hSus) = i*(s1==s2);
+            case    'A'
+                MAT = zeros(classes,classes);
+                MAT(hSus,hInf) = 1;
+                MAT(hInf,hInfS) = 1;
+                
+                MAT(hInfS,hInfST) = 0.1;
+                MAT(hInfS,hSus) = InitRecov + min(1-TreatAdd-InitRecov, ...
+                    heaviside((s1-WorstDay)/(RecoveryInt(2)-WorstDay)));
+        end        
         
 end
