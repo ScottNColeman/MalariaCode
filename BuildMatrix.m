@@ -150,7 +150,9 @@ switch  model
         RecoveryInt = [7 28];
         WorstDay = 21;
         InitRecov = 0.05;
+        InitDeath = 1/10;
         TreatAdd = 1/10;
+        
         r=1/14;
         c=1/6;
         i = 1/20;
@@ -165,7 +167,7 @@ switch  model
                 MAT = zeros(classes);
                 MAT(hInf,hInf) = min(1,heaviside(s1-SymDevInt(1))* ... 
                     (s1-SymDevInt(1))/diff(SymDevInt));
-                MAT(hInfS,hInfS) = 1- min(1-
+                MAT(hInfS,hInfS) = 1- min(1-TreatAdd-InitRecov-InitDeath,
             case    'Q'
 
                 MAT = zeros(classes,classes,classes);
