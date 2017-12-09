@@ -9,6 +9,8 @@ switch model
         value = c;
     case 2
         value = c;
+    case 3
+        value = c;
     otherwise
         value = c;
 end

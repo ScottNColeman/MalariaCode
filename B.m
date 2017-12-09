@@ -14,6 +14,12 @@ switch model
         else
             value = b;
         end
+    case 3
+        if s1 < 10
+            value = 0;
+        else
+            value = b;
+        end
     otherwise
         value = b;
 end

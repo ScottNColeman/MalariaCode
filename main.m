@@ -1,7 +1,7 @@
-function main(model, tmax, ic)
+function main(model, tmax, ic, class)
 
 % Initial matrices to store t and s values
-t = linspace(0, tmax, 600); % uses n index
+t = linspace(0, tmax, 601); % uses n index
 s = t; % uses m index, half of these values are useless
 
 i = 1 / 20;
@@ -13,6 +13,7 @@ Init = [(r * (b + c)) / (b * (i + r));
         (b * i - c * r) / (b * (i + r));
         (c * (i + r)) / (i * (b + c));
         (b * i - c * r) / (i * (b + c))];
+    
 % Initialise each class
 u = zeros(length(t), length(s), 4);
 
@@ -22,6 +23,8 @@ switch ic
         u(1,1,:) = [0.9, 0.1, 1, 0];
     case 'im'
         u(1,1,:) = [1, 0, 0.9, 0.1];
+    case 'eq'
+        u(1,1,:) = Init;
 end
 
 disp(1)
@@ -96,7 +99,7 @@ switch model
         legend('Susceptible', 'Susceptible steady state', 'Infected', 'Infected steady state')
         ylim([0, YLIM_MAX])
     
-    case 2
+    otherwise
         k = 1; % Suspectible humans
         plot(t, sum(u(:, :, k), 1), 'b-', 'LineWidth', LINEWIDTH) % total residence in each class against time
         plot(t, Init(k) * ones(size(t)), 'b--') % analytic equilibrium
@@ -127,31 +130,42 @@ switch model
         ylim([0, YLIM_MAX])
 end
 %%
-class = 1;
 
 switch class
+    case 0
+        A0 = 0; A1 = 1;
     case 1
         % H1
-        a = (r * (b * i - c * r)) / (b * (i + r));
-        b = (r * i - c * r) / (b + c);
+        A0 = (r * (b * i - c * r)) / (b * (i + r));
+        %A0 = u(1,end,1);
+        A1 = (b * i - c * r) / (b + c);
     case 2
         % H2
-        a = (r * (b * i - c * r)) / (b * (i + r));
-        b = R;
+        A0 = (r * (b * i - c * r)) / (b * (i + r));
+        A1 = r;
     case 3
         % M1
-        a = (c * (b * i - c * r)) / (i * (b + c));
-        b = (b * i - c * r) / (i + r);
+        A0 = (c * (b * i - c * r)) / (i * (b + c));
+        A1 = (b * i - c * r) / (i + r);
     case 4
         % M2
-        a = (c * (b * i - c * r)) / (i * (b + c));
-        b = c;
+        A0 = (c * (b * i - c * r)) / (i * (b + c));
+        A1 = c;
 end
 
-u_pred = (s(2) - s(1)) * a * (1 - (s(2) - s(1)) * b) .^ (0:length(s) - 1);
+ds = s(2) - s(1);
+u_pred = ds * A0 * ( ( 1 - ds * A1 ) .^ (0:(length(s) - 1)) );
+%u_pred = A0 * ( ( 1 - ds * A1 ) .^ (0:(length(s) - 1)) );
 
-%figure;
-%plot(s,u(:,end,class),'r-')
-%hold on
-
-%plot(s,u_pred,'g--')
+if class ~= 0
+    figure('Name', 'Residence Times');
+    temp = u(:,end,class) / sum(u(:,end,class));
+    %plot(s,u(:,end,class),'r-')
+    plot(s,temp,'r-')
+    hold on
+    temp = u_pred / Init(class);
+    plot(s,temp,'g--')
+    xlabel('Residence Time'); ylabel('Proportion of Class')
+    legend('Residence Step Model','Original Residence Model')
+    xlim([0 100])
+end

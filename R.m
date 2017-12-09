@@ -13,6 +13,12 @@ switch model
         else
             value = r;
         end
+    case 3
+        if s < 14
+            value = 0;
+        else
+            value = 1;
+        end
     otherwise
         value = r;
 end
