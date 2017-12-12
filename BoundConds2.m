@@ -12,7 +12,13 @@ for     i = 1:size(u0,3)
         u_s1 = reshape(u(1,s1,:),size(u,3),1);
         Gu = G*u_s1;
         ApTPu = transpose(Ap)*P*u_s1;
+
         u0(1,1,i) = u0(1,1,i) +ApTPu(i) +Gu(i);
+
+        u0(1,1,i) = u0(1,1,i) +ApTPu(i);% -Gu(i);
+
+        u0(1,1,i) = u0(1,1,i) +ApTPu(i) -Gu(i);
+
         Aq = BuildMatrix(model,'Aq',S(s1),0,0);
         for     j = 1:size(u0,3)
             for     s2 = 1:tStep

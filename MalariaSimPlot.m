@@ -17,6 +17,7 @@ figure;
 col = ['b-' 'g-' 'r-' 'm-' 'k-' 'b-' 'g-' 'r-' 'm-' 'k-'];
 for i = 1:size(uInitu,3)
     if i == 6
+<<<<<<< HEAD
         legend({'Sus','Inf (no)','Inf (yes)','Isolation'},'FontSize',16);
         title('Humans')
         figure;
@@ -32,3 +33,14 @@ end
 legend({'Young','Sus','Inf (Inc)','Inf'},'FontSize',16);
 title('Mosquitos')
 end
+=======
+        figure;
+    end
+    hold on;
+    uu = transpose(uInitu(:,:,i));
+    plot( t, sum(uu(:,:),1),col(i)) % total residence in each class against time
+    xlabel('Time'); ylabel('Population')
+    
+end
+end
+>>>>>>> 18b1775e0b8f44731dfb905274af630adb65dee3
