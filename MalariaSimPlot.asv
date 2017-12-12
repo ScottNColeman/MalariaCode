@@ -17,18 +17,15 @@ figure;
 col = ['b-' 'g-' 'r-' 'm-' 'k-' 'b-' 'g-' 'r-' 'm-' 'k-'];
 for i = 1:size(uInitu,3)
     if i == 6
-        legend({'Sus','Inf (no)','Inf (yes)','Isolation'},'FontSize',16);
-        title('Humans')
+        legend('Suseptible Humans','Infected Humans
         figure;
     end
-    if i ~= 5 && i~=10
+    if i ~= 5 || i~=10
         hold on;
         uu = transpose(uInitu(:,:,i));
-        plot( t, sum(uu(:,:),1),col(i),'LineWidth',2) % total residence in each class against time
-        xlabel('Time','FontSize',20); ylabel('Relative Population','FontSize',20)
+        plot( t, sum(uu(:,:),1),col(i)) % total residence in each class against time
+        xlabel('Time'); ylabel('Relative Population')
     end
 
 end
-legend({'Young','Sus','Inf (Inc)','Inf'},'FontSize',16);
-title('Mosquitos')
 end

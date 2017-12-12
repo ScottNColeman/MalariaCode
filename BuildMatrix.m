@@ -136,11 +136,11 @@ switch  model
         initDeathTreat = 0.1;
         admit = 0.1;
         hBirth = 19/365000;
-        mBirth = 1/52;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CHECK
+        mBirth = 1/17;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CHECK
         matureTime = 14;
         bite = 1/2;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CHECK
         infect = 1/20;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CHECK
-        mDeath = 1/52;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CHECK
+        mDeath = 1/17;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CHECK
         incTime = 10;
         switch  matstr
             case    'uInit'
